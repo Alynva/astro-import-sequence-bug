@@ -1,0 +1,30 @@
+---
+// The order here affects if the styles from `common.scss` is placed before or
+// after:
+//
+// - "Component -> Layout -> Common" generates "Component -> PageStyle -> Common" (wrong)
+// - "Layout -> Component -> Common" generates "Common -> Component -> PageStyle" (right)
+// - "Component -> Common -> Layout" generates "Common -> Component -> PageStyle" (right)
+// - "Common -> Component -> Layout" generates "Common -> Component -> PageStyle" (right)
+// - "Common -> Layout -> Component" generates "Common -> Component -> PageStyle" (right)
+
+import Component from "../components/Component.astro";
+import Layout from "../layouts/Layout.astro";
+import "../styles/common.css"
+
+// The component style doesn't need to be used, just processed.
+
+// This only happens if another page is importing the common style.
+---
+<Layout>
+	<!-- The order here doesnt metter, but the component needs to be rendered -->
+	<Component />
+
+	This text should be blue (defined in the page's scoped style) as explained <a href="https://docs.astro.build/en/guides/styling/#scoped-styles-1">here</a>.
+</Layout>
+
+<style>
+	body {
+		color: blue;
+	}
+</style>
